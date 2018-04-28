@@ -1,6 +1,5 @@
-Sub Ticket()
+Sub Ticker_Names()
 Dim last_row As Long, c As Integer, g_dec As Double, g_inc As Double
-    
     For Each ws In Worksheets
         'labels
         ws.Cells(1, 9).Value = "Ticker"
@@ -12,16 +11,12 @@ Dim last_row As Long, c As Integer, g_dec As Double, g_inc As Double
         ws.Cells(4, 15).Value = "Greatest Total Volume"
         ws.Cells(1, 16).Value = "Ticker"
         ws.Cells(1, 17).Value = "Value"
-        
         'Value of the row the new table is
         c = 2
-        
         'total_vol initial value is zero
         total_vol = 0
-        
         'calculate the last row
         last_row = ws.Cells(Rows.Count, 1).End(xlUp).Row
-        
         
         'Iterate in the ticker column to get the different ticker names and sum of vol
         For i = 2 To last_row
@@ -44,8 +39,6 @@ Dim last_row As Long, c As Integer, g_dec As Double, g_inc As Double
                 total_vol = total_vol + ws.Cells(i, 7).Value
             End If
         Next i
-        
-
     Next ws
 End Sub
 
@@ -53,10 +46,11 @@ End Sub
 Sub SecondChart()
 Dim FMin As Long, FMax As Long, last_row As Long, open_val As Double 
 Dim close_val As Double, year_chg As Double, perc_chg As Double
-
     For Each ws In Worksheets
         last_row = ws.Cells(Rows.Count, 1).End(xlUp).Row
+        'k would be value of d' row where the new ticker starts
         k = 2
+        'c is the row where each ticker is in 2 chart
         c = 2
         For i = 2 To last_row
             If ws.Cells(i, 1).Value <> ws.Cells(i + 1, 1).Value Then
@@ -68,12 +62,10 @@ Dim close_val As Double, year_chg As Double, perc_chg As Double
                 For m = k To i
                     If FMin = ws.Cells(m, 2).Value Then
                         open_val = ws.Cells(m, 3).Value
-                        'ws.Cells(c, 20) = open_val
                     End If
                     
                     If FMax = ws.Cells(m, 2).Value Then
                         close_val = ws.Cells(m, 6).Value
-                        'ws.Cells(c, 21) = close_val
                     End If
                 Next m
 
@@ -101,7 +93,6 @@ Dim close_val As Double, year_chg As Double, perc_chg As Double
             perc_chg = 0
             c = c + 1
             k = i + 1
-            '*k=i-2
             End If
         Next i
     Next ws
@@ -129,13 +120,13 @@ Dim last_row As Long, c As Integer, g_dec As Double, g_inc As Double, last_row2 
         'Get the tickers names of the greatest values
         For a = 2 To last_row2
             If g_inc = ws.Cells(a, 11).Value Then
-            ws.Cells(2, 16).Value = ws.Cells(a, 9).Value
+                ws.Cells(2, 16).Value = ws.Cells(a, 9).Value
             End If
             If g_dec = ws.Cells(a, 11).Value Then
-            ws.Cells(3, 16).Value = ws.Cells(a, 9).Value
+                ws.Cells(3, 16).Value = ws.Cells(a, 9).Value
             End If
             If g_tot = ws.Cells(a, 12).Value Then
-            ws.Cells(4, 16).Value = ws.Cells(a, 9).Value
+                ws.Cells(4, 16).Value = ws.Cells(a, 9).Value
             End If
         Next a
     Next ws
